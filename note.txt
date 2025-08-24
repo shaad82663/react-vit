@@ -1,7 +1,8 @@
 create amplify in project
 npm create spmplify@latest
 
-npm ampx sandbox
+npx ampx sandbox
+
 
 npx ampx sandbox delete
 
@@ -67,3 +68,32 @@ sudo npm i -g aws-cdk
  write config  in lib/
  cdk synth -> cf config is geenated 
  cdk bottstrap (what this ?) (one time process at a)
+
+
+
+we can use function 
+just defin fnctions in /amplify/function foders
+we will have fodler anmed for fucntion inside that we will have resource and handler ile
+e.g.
+resource
+import { defineFunction } from '@aws-amplify/backend'
+
+export const sayHello = defineFunction({
+ name: 'sayHello',
+    entry: 'handler.ts',
+    bundling: {
+        minify: false
+    }
+})
+
+handler.js
+
+import { Schema } from "../../data/resource";
+
+type handlerType = Schema["sayHello"]["functionHandler"];
+
+export const handler: handlerType = async (event, context) => {
+  console.log("EVENT: \n" + JSON.stringify(event, null, 2));
+  const {name} = event.arguments || {};
+    return `Hello, ${name || "world"}!`;
+};
