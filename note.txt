@@ -1,0 +1,69 @@
+create amplify in project
+npm create spmplify@latest
+
+npm ampx sandbox
+
+npx ampx sandbox delete
+
+Infra as code
+
+What is IAC ?
+
+U don't have to mange things (e.g. server, s3)
+audtimatuin
+scalabilty and collaboration
+
+
+e.g. Cloudformation -> aws cloude dev kit cdk -> amplify. (amplify is high level a straction)
+
+
+1. Cloudformation
+
+JSON/YAML file (resources e.g. s3)
+we specify resirces and other things in json or yaml config
+by outpus file can get all info
+
+e.g. below is exampple for file. Got cloud formation and create stack 
+
+{
+    "Resources": {
+        "HelloBucket": {
+            "Type": "AWS::S3::Bucket",
+            "Properties": {
+                "LifecycleConfiguration": {
+                    "Rules": [
+                        {
+                            "ExpirationInDays": 3,
+                            "Status": "Enabled"
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "Outputs": {
+        "HelloBucketNameOutput": {
+            "Description": "Name of the created S3 bucket",
+            "Value": { "Ref": "HelloBucket" }
+        }
+    }
+}
+
+
+2. CDK : Abstraction over cloud formation - write CF template as code
+So dev can wirte CF configs using code 
+
+Dev write cod (in prog lang e.g. typescript, python etc )e -> JSII compiler compiles code -> typescript code -> execut -> cloudformatio template 
+
+Stesp from writeing code to get cf file is cakked synthesize process 
+
+For this we need to install cdk in machine first
+sudo npm i -g aws-cdk
+
+
+ cdk init app --language=typescript 
+
+ (do cdk init -> for more options)
+ write config  in lib/
+ cdk synth -> cf config is geenated 
+ cdk bottstrap (what this ?) (one time process at a)
